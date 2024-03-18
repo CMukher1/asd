@@ -1,0 +1,98 @@
+/Config/createMenu:
+  post:
+    summary: Create a new menu
+    tags:
+      - Configuration
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - display_text
+              - pathKey
+              - role_ids
+            properties:
+              display_text:
+                type: string
+              pathKey:
+                type: string
+              group_name:
+                type: string
+              role_ids:
+                type: array
+                items:
+                  type: string
+    responses:
+      "200":
+        description: Success response
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: Success
+                message:
+                  type: string
+                  example: Role is created successfully
+                data:
+                  $ref: "#/components/schemas/MenuEntity"
+      "400":
+        description: Bad request response
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: Error
+                message:
+                  type: string
+                  example: Role not found
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Internal server error occurred
+components:
+  schemas:
+    MenuEntity:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        display_text:
+          type: string
+          example: Main Menu
+        logical_path:
+          type: string
+          example: /main
+        created_by:
+          type: string
+          example: user123
+        updated_by:
+          type: string
+          example: user123
+        roles:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoleEntity"
+    RoleEntity:
+      type: object
+      properties:
+        id:
+          type: string
+          example: role123
+        name:
+          type: string
+          example: Admin

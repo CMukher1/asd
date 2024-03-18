@@ -1,0 +1,9 @@
+/Employee/getEmployeeDetails:
+  get:
+    summary: getEmployeeDetails
+    description: Get loged in user details
+    tags:
+      - Employee
+    responses:
+      401:
+        description: User logout

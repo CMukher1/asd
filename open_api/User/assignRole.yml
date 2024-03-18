@@ -1,0 +1,53 @@
+/User/assignRole:
+  post:
+    summary: Assign a role to a user
+    tags:
+      - User
+    requestBody:
+      description: Data for assigning a role to a user
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AssignRoleDto"
+    responses:
+      "200":
+        description: Role assigned successfully
+
+      "400":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                message:
+                  type: string
+      "500":
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+components:
+  schemas:
+    AssignRoleDto:
+      type: object
+      required:
+        - user_id
+        - role_id
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        role_id:
+          type: array
+          items:
+            type: string
+            format: uuid

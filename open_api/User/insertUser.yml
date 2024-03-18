@@ -1,0 +1,88 @@
+/User/insertUser:
+  post:
+    summary: Create a new user
+    tags:
+      - User
+    requestBody:
+      description: User data for creating a new user
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateUserDto"
+    responses:
+      "200":
+        description: User created successfully
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserEntity"
+      "400":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      property:
+                        type: string
+                      message:
+                        type: array
+                        items:
+                          type: string
+      "500":
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+components:
+  schemas:
+    CreateUserDto:
+      type: object
+      required:
+        - password
+        - firstname
+        - lastname
+        - email_id
+      properties:
+        password:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        country:
+          type: string
+        langu:
+          type: string
+        email_id:
+          type: string
+          format: email
+        contact_no:
+          type: string
+          pattern: '^\+[1-9]\d{1,14}$' # Adjust the pattern based on your requirements
+        status:
+          type: string
+          enum:
+            - A
+            - I
+
+    UserEntity:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: "#/components/schemas/CreateUserDto"

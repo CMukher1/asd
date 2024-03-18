@@ -1,0 +1,24 @@
+/Config/getConfigs:
+  get:
+    summary: Get configurations
+    tags:
+      - Configuration
+    responses:
+      "200":
+        description: Successful response
+      "500":
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string

@@ -1,0 +1,9 @@
+/public/Auth/Logout:
+  post:
+    summary: Logout User
+    description: Logs the user out of the application.
+    tags:
+      - Authentication
+    responses:
+      401:
+        description: User logout

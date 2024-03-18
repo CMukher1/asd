@@ -1,0 +1,74 @@
+/Config/createClient:
+  post:
+    summary: Create a new client
+    tags:
+      - Configuration
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateClientDto"
+    responses:
+      "200":
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientEntity"
+      "400":
+        description: Bad request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      property:
+                        type: string
+                      message:
+                        type: array
+                        items:
+                          type: string
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+components:
+  schemas:
+    CreateClientDto:
+      type: object
+      required:
+        - client_name
+        - countryCode
+      properties:
+        client_name:
+          type: string
+          maxLength: 20
+        client_description:
+          type: string
+          maxLength: 200
+        countryCode:
+          type: string
+          maxLength: 3
+          minLength: 2
+          pattern: "^[A-Za-z]{2,3}$"
+
+    ClientEntity:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        country:
+          type: string

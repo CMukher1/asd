@@ -1,0 +1,9 @@
+/User/getUserDetails:
+  get:
+    summary: getUserDetails
+    description: Get loged in user details
+    tags:
+      - User
+    responses:
+      401:
+        description: User logout

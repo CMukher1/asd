@@ -1,0 +1,100 @@
+/Employee/insertEmployee:
+  post:
+    summary: Create a new employee
+    tags:
+      - Employee
+    requestBody:
+      description: Employee data for creating a new employee
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateEmployeeDto"
+    responses:
+      "200":
+        description: Employee created successfully
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmployeeEntity"
+      "400":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errors:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      property:
+                        type: string
+                      message:
+                        type: array
+                        items:
+                          type: string
+      "500":
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+
+components:
+  schemas:
+    CreateEmployeeDto:
+      type: object
+      required:
+        - dateOfBirth
+        - gender
+        - jobTitle
+        - department
+        - salary
+        - startDate
+        - manager
+        - peopleManager
+        - user
+      properties:
+        dateOfBirth:
+          type: string
+          format: date
+        gender:
+          type: string
+          enum:
+            - Male
+            - Female
+            - Other
+        jobTitle:
+          type: string
+        department:
+          type: string
+        salary:
+          type: integer
+          format: number
+        startDate:
+          type: string
+          format: date
+        manager:
+          type: string
+          format: uuid
+        peopleManager:
+          type: string
+          format: uuid
+        user:  
+          type: string
+          format: uuid
+
+    EmployeeEntity:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          $ref: "#/components/schemas/CreateEmployeeDto"
